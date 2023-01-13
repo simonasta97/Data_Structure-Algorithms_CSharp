@@ -17,7 +17,15 @@
 
         public T Dequeue()
         {
-            throw new NotImplementedException();
+            if (this.Count == 0)
+            {
+                throw new InvalidOperationException("The queue is empty!");
+            }
+
+            var result = this.elements[this.startIndex];
+            this.startIndex = (this.startIndex + 1) % this.elements.Length;
+            this.Count--;
+            return result;
         }
 
         public void Enqueue(T item)
@@ -33,7 +41,12 @@
 
         public T Peek()
         {
-            throw new NotImplementedException();
+            if (this.Count == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return this.elements[this.startIndex];
         }
 
         public T[] ToArray()
