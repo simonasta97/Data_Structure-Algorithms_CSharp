@@ -6,36 +6,39 @@ namespace CombinatiorialProblems
     public class Program
     {
         private static string[] elements;
+        private static string[] variations;
+        private static bool[] used;
+        private static int k;
 
         public static void Main()
         {
-            elements = new[] {"A","B","C" };
-            Permute(0);
+            elements = Console.ReadLine().Split();
+            
+            
+            used = new bool[elements.Length];
+            k = int.Parse(Console.ReadLine());
+            variations = new string[k];
+            Variations(0);
         }
 
-        private static void Permute(int idx)
+        private static void Variations(int idx)
         {
-            if (idx>= elements.Length)
+            if (idx >= variations.Length)
             {
-                Console.WriteLine(string.Join(" ", elements));
+                Console.WriteLine(string.Join(" ", variations));
                 return;
             }
 
-            Permute(idx + 1);
-
-            for (int i = idx + 1; i < elements.Length; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
-                Swap(idx, i);
-                Permute(idx + 1);
-                Swap(idx, i);
+                if (!used[i])
+                {
+                    used[i] = true;
+                    variations[idx] = elements[i];
+                    Variations(idx + 1);
+                    used[i] = false;
+                }
             }
-        }
-
-        private static void Swap(int first, int second)
-        {
-            var temp = elements[first];
-            elements[first] = elements[second];
-            elements[second] = temp;
         }
     }
 }
