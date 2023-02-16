@@ -6,38 +6,29 @@ namespace CombinatiorialProblems
     public class Program
     {
         private static string[] elements;
-        private static string[] variations;
-        private static bool[] used;
+        private static string[] combinations;
         private static int k;
 
         public static void Main()
         {
-            elements = Console.ReadLine().Split();
-            
-            
-            used = new bool[elements.Length];
+            elements = Console.ReadLine().Split(); 
             k = int.Parse(Console.ReadLine());
-            variations = new string[k];
-            Variations(0);
+            combinations = new string[k];
+            Combinations(0, 0);
         }
 
-        private static void Variations(int idx)
+        private static void Combinations(int idx, int startIndex)
         {
-            if (idx >= variations.Length)
+            if (idx >= combinations.Length)
             {
-                Console.WriteLine(string.Join(" ", variations));
+                Console.WriteLine(string.Join(" ", combinations));
                 return;
             }
 
-            for (int i = 0; i < elements.Length; i++)
+            for (int i = startIndex; i < elements.Length; i++)
             {
-                if (!used[i])
-                {
-                    used[i] = true;
-                    variations[idx] = elements[i];
-                    Variations(idx + 1);
-                    used[i] = false;
-                }
+                combinations[idx] = elements[i];
+                Combinations(idx + 1, i + 1);
             }
         }
     }
