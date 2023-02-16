@@ -1,38 +1,41 @@
 ﻿using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 
 namespace CombinatiorialProblems
 {
     public class Program
     {
         private static string[] elements;
-        private static string[] permutations;
-        private static bool[] used;
+
         public static void Main()
         {
             elements = new[] {"A","B","C" };
-            permutations = new string[elements.Length];
-            used = new bool[elements.Length];
             Permute(0);
         }
 
         private static void Permute(int idx)
         {
-            if (idx>= permutations.Length)
+            if (idx>= elements.Length)
             {
-                Console.WriteLine(string.Join(" ",permutations));
+                Console.WriteLine(string.Join(" ", elements));
                 return;
             }
 
-            for (int i = 0; i < elements.Length; i++)
+            Permute(idx + 1);
+
+            for (int i = idx + 1; i < elements.Length; i++)
             {
-                if (!used[i])
-                {
-                    used[i] = true;
-                    permutations[idx] = elements[i];
-                    Permute(idx + 1);
-                    used[i] = false;
-                }
+                Swap(idx, i);
+                Permute(idx + 1);
+                Swap(idx, i);
             }
+        }
+
+        private static void Swap(int first, int second)
+        {
+            var temp = elements[first];
+            elements[first] = elements[second];
+            elements[second] = temp;
         }
     }
 }
