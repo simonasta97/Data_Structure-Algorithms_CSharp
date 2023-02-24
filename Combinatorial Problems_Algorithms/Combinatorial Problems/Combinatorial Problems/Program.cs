@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.ExceptionServices;
-
-namespace CombinatiorialProblems
+﻿namespace CombinatiorialProblems
 {
     public class Program
     {
